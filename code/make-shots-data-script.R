@@ -1,8 +1,8 @@
 #################################################################
 ## Title: Code for shots-data.csv
 ## Description: Code to make "shots-data.csv" for data visualization
-## Inputs: 
-## Outputs:
+## Inputs: .csv files of players from data folder
+## Outputs: shots-data.csv, shots-data-summary.txt, playerfirst-last-summary.txt
 #################################################################
 
 # library load
