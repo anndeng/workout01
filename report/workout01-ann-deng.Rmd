@@ -1,0 +1,64 @@
+---
+title: "Workout 1"
+author: Ann Deng
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE}
+# load libraries
+library(dplyr)
+library(grid)
+library(jpeg)
+library(ggplot2)
+```
+
+-------------------
+**Purpose**: As a team, the Golden State Warriors (GSW) shoot a large number of shots - in the 2016 NBA season, the five players shot a total of 4334 shots from all around the opponent's half of the court (and some were even beyond the half-court line). This report seeks to demonstrate some of the strengths and weaknesses of each of the team members in terms of their shots made and shots attempted, as well as draw some general observations about the shooting patterns of the GSW.
+
+**Method**: The data for the tables and charts for this report come from the .csv files "andre-iguodala.csv", "draymond-green.csv", "kevin-durant.csv", "klay-thompson.csv", and "stephen-curry.csv" available in the github repo at https://github.com/ucb-stat133/stat133-hws/tree/master/data. From this data, I compiled a .csv file that contains all of their stats plus a "minute" category that details at which minutes their shots were attempted. This "complete" .csv was used to make charts for each of the players that indicate the positions on a court where shots were attempted as well as the success or failure of the shot. In addition, I created summary tables for each of the players describing the min, max, mean, median, and quartiles for each of their shot stats, which are located in the outputs folder as supplemental information. 
+
+**Data and Analysis**:
+
+These shot charts give a general sense of where on the court each player was shooting from: 
+```{r out.width='80%', echo = FALSE, fig.align ='center'}
+knitr::include_graphics('../images/gsw-shot-charts.png')
+```
+We can see that Kevin Durant, Klay Thomspon, and Stephen Curry make a huge number of shots, and Draymond Green and Andre Iguodala make a significantly smaller amount. Curry makes more shots outside of the three-point line than the rest of the players. 
+
+These tables give the shooting % by player:
+```{r}
+shot_data <- read.csv('../data/shots-data.csv')
+
+# 2PT effective shooting % by player
+arrange(
+  summarise(
+  group_by(shot_data, name),
+  total = sum(shot_type == '2PT Field Goal'),
+  made = sum(shot_made_flag == "shot_yes" & shot_type == '2PT Field Goal'),
+  perc_made = sum(shot_made_flag == "shot_yes" & shot_type == '2PT Field Goal') / length(name)),
+desc(perc_made))
+
+# 3PT effective shooting % by player
+arrange(
+  summarise(
+  group_by(shot_data, name),
+  total = sum(shot_type == '3PT Field Goal'),
+  made = sum(shot_made_flag == "shot_yes" & shot_type == '3PT Field Goal'),
+  perc_made = sum(shot_made_flag == "shot_yes" & shot_type == '3PT Field Goal') / length(name)),
+desc(perc_made))
+
+# Overall effective shooting % by player
+arrange(
+  summarise(
+  group_by(shot_data, name),
+  total = length(name),
+  made = sum(shot_made_flag == "shot_yes"),
+  perc_made = sum(shot_made_flag == "shot_yes") / length(name)),
+desc(perc_made))
+```
+
+From these tables, we can see that, in general, Kevin Durant makes his shots most often, and Andre Iguodala second-most often. Durant also makes the highest percentage of 2PT field goals. However, Steph Curry makes the highest percentage of 3PT field goals, with Klay Thompson coming in at a close second.

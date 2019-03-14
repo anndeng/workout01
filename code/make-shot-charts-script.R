@@ -12,8 +12,8 @@ library(ggplot2)
 library(dplyr)
 
 # get player and court data
-shot_data <- read.csv("~/Desktop/workout01/data/shots-data.csv", stringsAsFactors = FALSE)
-court_file <- "~/Desktop/workout01/images/nba-court.jpg"
+shot_data <- read.csv("../data/shots-data.csv", stringsAsFactors = FALSE)
+court_file <- "../images/nba-court.jpg"
 
 # create raste object
 court_image <- rasterGrob(readJPEG(court_file), width = unit(1, "npc"), height = unit(1, "npc"))

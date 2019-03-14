@@ -9,11 +9,11 @@
 library(dplyr)
 
 # reading in .csvs
-curry <- read.csv("~/Desktop/workout01/data/stephen-curry.csv", stringsAsFactors = FALSE)
-thompson <- read.csv("~/Desktop/workout01/data/klay-thompson.csv", stringsAsFactors = FALSE)
-durant <- read.csv("~/Desktop/workout01/data/kevin-durant.csv", stringsAsFactors = FALSE)
-green <- read.csv("~/Desktop/workout01/data/draymond-green.csv", stringsAsFactors = FALSE)
-iguodala <- read.csv("~/Desktop/workout01/data/andre-iguodala.csv", stringsAsFactors = FALSE)
+curry <- read.csv("../data/stephen-curry.csv", stringsAsFactors = FALSE)
+thompson <- read.csv("../data/klay-thompson.csv", stringsAsFactors = FALSE)
+durant <- read.csv("../data/kevin-durant.csv", stringsAsFactors = FALSE)
+green <- read.csv("../data/draymond-green.csv", stringsAsFactors = FALSE)
+iguodala <- read.csv("../data/andre-iguodala.csv", stringsAsFactors = FALSE)
 
 # add name column
 curry$name <- "Stephen Curry"
@@ -42,25 +42,25 @@ green$minute <- ((green$period - 1) * 12 + (12 - green$minutes_remaining))
 iguodala$minute <- ((iguodala$period - 1) * 12 + (12 - iguodala$minutes_remaining))
 
 # sinking to output
-sink("~/Desktop/workout01/output/stephen-curry-summary.txt")
+sink("../output/stephen-curry-summary.txt")
 summary(curry)
 sink()
-sink("~/Desktop/workout01/output/klay-thompson-summary.txt")
+sink("../output/klay-thompson-summary.txt")
 summary(thompson)
 sink()
-sink("~/Desktop/workout01/output/kevin-durant-summary.txt")
+sink("../output/kevin-durant-summary.txt")
 summary(durant)
 sink()
-sink("~/Desktop/workout01/output/draymond-green-summary.txt")
+sink("~../output/draymond-green-summary.txt")
 summary(green)
 sink()
-sink("~/Desktop/workout01/output/andre-iguodala-summary.txt")
+sink("~../workout01/output/andre-iguodala-summary.txt")
 summary(iguodala)
 sink()
 
 # rbind and export
 stacked_tables <- rbind(curry, durant, green, iguodala, thompson)
-write.csv(stacked_tables, file = "~/Desktop/workout01/data/shots-data.csv")
-sink("~/Desktop/workout01/output/shots-data-summary.txt")
+write.csv(stacked_tables, file = "../data/shots-data.csv")
+sink("../output/shots-data-summary.txt")
 summary(stacked_tables)
 sink()
